@@ -4,15 +4,24 @@ name: Truffle Build
 
 on:
   push:
-    branches: [ master ]
+    branches: [ main, github-actions ]
   pull_request:
-    branches: [ master ]
+    branches: [ main ]
 
 jobs:
   build:
 
     runs-on: ubuntu-latest
 
+    # Service containers to run with `container-job`
+    services:
+      # Label used to access the service container
+      ganache:
+        # Docker Hub image
+        image: trufflesuite/ganache-cli
+        ports:
+          # Opens tcp port 8545 on the host and service container
+          - 8545:8545
     steps:
       - uses: actions/checkout@v2
 
