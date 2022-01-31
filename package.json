@@ -4,8 +4,10 @@
     "truffle": "^5.1.65"
   },
   "devDependencies": {
+    "@codechecks/client": "^0.1.12",
     "@openzeppelin/test-helpers": "^0.5.15",
     "chai": "^4.3.6",
-    "ganache-cli": "^6.12.2"
+    "ganache-cli": "^6.12.2",
+    "solidity-coverage": "^0.7.18"
   }
 }

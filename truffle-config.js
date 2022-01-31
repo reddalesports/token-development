@@ -93,5 +93,6 @@ module.exports = {
       //  evmVersion: "byzantium"
       // }
     }
-  }
+  },
+  plugins: ["solidity-coverage"]
 };

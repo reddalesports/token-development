@@ -60,6 +60,25 @@ truffle(develop)> (await token.totalSupply()).toString()
 run `npx ganache-cli --deterministic`
 in a different terminal `npx truffle test`
 
+To run the test coverage:
+`npx truffle run coverage`
+
+```solidity
+  6 passing (632ms)
+
+----------------------|----------|----------|----------|----------|----------------|
+File                  |  % Stmts | % Branch |  % Funcs |  % Lines |Uncovered Lines |
+----------------------|----------|----------|----------|----------|----------------|
+ contracts/           |      100 |      100 |      100 |      100 |                |
+  SimpleCrowdsale.sol |      100 |      100 |      100 |      100 |                |
+  SimpleToken.sol     |      100 |      100 |      100 |      100 |                |
+----------------------|----------|----------|----------|----------|----------------|
+All files             |      100 |      100 |      100 |      100 |                |
+----------------------|----------|----------|----------|----------|----------------|
+
+> Istanbul reports written to ./coverage/ and ./coverage.json
+> solidity-coverage cleaning up, shutting down ganache server
+```
 
 # CrowdSale
 
