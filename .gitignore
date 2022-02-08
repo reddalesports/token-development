@@ -56,3 +56,5 @@ fabric.properties
 
 # *.iml
 # modules.xml
+# ignore .env
+.env

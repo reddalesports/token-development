@@ -3,7 +3,7 @@
 const SimpleToken = artifacts.require("SimpleToken");
 const SimpleCrowdsale = artifacts.require("SimpleCrowdsale");
 
-//Migrations script that deploys the token and crowdsale,
+// Migrations script that deploys the token and crowdsale,
 // then transfers the total supply of tokens to the crowdsale.
 module.exports = async function (deployer, network, accounts) {
     await deployer.deploy(SimpleToken, 'Simple Token', 'SIM', '10000000000000000000000');
