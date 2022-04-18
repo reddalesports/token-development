@@ -22,7 +22,7 @@ contract('SimpleCrowdsale', function ([ creator, investor, wallet ]) {
 
     beforeEach(async function () {
         this.token = await SimpleToken.new(NAME, SYMBOL, TOTAL_SUPPLY, { from: creator });
-        this.crowdsale = await SimpleCrowdsale.new(RATE, wallet, this.token.address);
+        this.crowdsale = await SimpleCrowdsale.new(RATE, wallet, this.token.address, creator, 1);
         this.token.transfer(this.crowdsale.address, await this.token.totalSupply());
     });
 
@@ -39,5 +39,27 @@ contract('SimpleCrowdsale', function ([ creator, investor, wallet ]) {
         await this.crowdsale.buyTokens(investor, { value: investmentAmount, from: investor });
 
         expect(await this.token.balanceOf(investor)).to.be.bignumber.equal(expectedTokenAmount);
+    });
+
+    it('should be pausable', async function () {
+        await this.crowdsale.pauseICO()
+
+        expect(await this.crowdsale.paused()).to.be.equal(true);
+    });
+
+    it('should be resumable', async function () {
+        await this.crowdsale.pauseICO()
+        expect(await this.crowdsale.paused()).to.be.equal(true);
+
+        await this.crowdsale.unpauseICO()
+        expect(await this.crowdsale.paused()).to.be.equal(false);
+
+    });
+
+    it('should use new ETHUSD rate', async function () {
+        value = new BN('42000000000000000000');
+        await this.crowdsale.updateETHUSDRate( new BN('42'))
+        expect(await this.crowdsale.ethusdRate()).to.be.bignumber.equal(new BN('42'));
+        expect(await this.crowdsale.rate()).to.be.bignumber.equal(value);
     });
 });
