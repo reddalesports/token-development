@@ -1,7 +1,7 @@
 // migrations/2_deploy.js
 // SPDX-License-Identifier: MIT
 const SimpleToken = artifacts.require("SimpleToken");
-const SimpleCrowdsale = artifacts.require("SimpleCrowdsale");
+const ReddalCrowdsale = artifacts.require("ReddalCrowdsale");
 
 // Migrations script that deploys the token and crowdsale,
 // then transfers the total supply of tokens to the crowdsale.
@@ -11,8 +11,8 @@ module.exports = async function (deployer, network, accounts) {
 
     const beneficiary = accounts[0]
     const updater = accounts[0]
-    await deployer.deploy(SimpleCrowdsale, 1000000, beneficiary, token.address, updater, 1);
-    const crowdsale = await SimpleCrowdsale.deployed();
+    await deployer.deploy(ReddalCrowdsale, 1000000, beneficiary, token.address, updater, 1);
+    const crowdsale = await ReddalCrowdsale.deployed();
 
     token.transfer(crowdsale.address, await token.totalSupply())
 };

@@ -1,4 +1,4 @@
-// contracts/SimpleCrowdsale.sol
+// contracts/ReddalCrowdsale.sol
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.5.5;
 
@@ -10,7 +10,7 @@ import "@openzeppelin/contracts/ownership/Ownable.sol";
  * @title SimpleCrowdsale
  * @dev This is an example of a fully fledged crowdsale.
  */
-contract SimpleCrowdsale is Crowdsale, Pausable, Ownable {
+contract ReddalCrowdsale is Crowdsale, Pausable, Ownable {
     uint public ETHUSD; //pulled from exchange
     uint public _price; // value of USD per token
     address public updater; //the address who is eligible to update the ETH/USD price

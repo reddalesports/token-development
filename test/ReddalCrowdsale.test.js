@@ -1,4 +1,4 @@
-// test/SimpleCrowdsale.test.js
+// test/ReddalCrowdsale.test.js
 // SPDX-License-Identifier: MIT
 
 // Based on https://github.com/OpenZeppelin/openzeppelin-solidity/blob/v2.5.1/test/examples/SimpleToken.test.js
@@ -10,10 +10,10 @@ const { BN, ether, expectEvent, expectRevert, constants } = require('@openzeppel
 
 // Load compiled artifacts
 const SimpleToken = artifacts.require('SimpleToken');
-const SimpleCrowdsale = artifacts.require('SimpleCrowdsale');
+const ReddalCrowdsale = artifacts.require('ReddalCrowdsale');
 
 // Start test block
-contract('SimpleCrowdsale', function ([ creator, investor, wallet ]) {
+contract('ReddalCrowdsale', function ([ creator, investor, wallet ]) {
 
     const NAME = 'SimpleToken';
     const SYMBOL = 'SIM';
@@ -22,7 +22,7 @@ contract('SimpleCrowdsale', function ([ creator, investor, wallet ]) {
 
     beforeEach(async function () {
         this.token = await SimpleToken.new(NAME, SYMBOL, TOTAL_SUPPLY, { from: creator });
-        this.crowdsale = await SimpleCrowdsale.new(RATE, wallet, this.token.address, creator, 1);
+        this.crowdsale = await ReddalCrowdsale.new(RATE, wallet, this.token.address, creator, 1);
         this.token.transfer(this.crowdsale.address, await this.token.totalSupply());
     });
 
