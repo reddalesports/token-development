@@ -9,19 +9,19 @@ const { expect } = require('chai');
 const { BN, ether, expectEvent, expectRevert, constants } = require('@openzeppelin/test-helpers');
 
 // Load compiled artifacts
-const SimpleToken = artifacts.require('SimpleToken');
+const REDDAL = artifacts.require('Reddal');
 const ReddalCrowdsale = artifacts.require('ReddalCrowdsale');
 
 // Start test block
 contract('ReddalCrowdsale', function ([ creator, investor, wallet ]) {
 
-    const NAME = 'SimpleToken';
+    const NAME = 'REDDAL';
     const SYMBOL = 'SIM';
     const TOTAL_SUPPLY = new BN('10000000000000000000000');
     const RATE = new BN(10);
 
     beforeEach(async function () {
-        this.token = await SimpleToken.new(NAME, SYMBOL, TOTAL_SUPPLY, { from: creator });
+        this.token = await REDDAL.new();
         this.crowdsale = await ReddalCrowdsale.new(RATE, wallet, this.token.address, creator, 1);
         this.token.transfer(this.crowdsale.address, await this.token.totalSupply());
     });

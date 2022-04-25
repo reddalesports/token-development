@@ -58,3 +58,6 @@ fabric.properties
 # modules.xml
 # ignore .env
 .env
+
+# hardhat artifacts
+hardhat-artifacts/
