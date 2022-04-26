@@ -7,6 +7,7 @@ const { expect } = require('chai');
 
 // Import utilities from Test Helpers
 const { BN, ether, expectEvent, expectRevert, constants } = require('@openzeppelin/test-helpers');
+const {ethers, upgrades} = require("hardhat");
 
 // Load compiled artifacts
 const REDDAL = artifacts.require('Reddal');
@@ -21,7 +22,8 @@ contract('ReddalCrowdsale', function ([ creator, investor, wallet ]) {
     const RATE = new BN(10);
 
     beforeEach(async function () {
-        this.token = await REDDAL.new();
+        const Token = await ethers.getContractFactory("Reddal");
+        this.token = await upgrades.deployProxy(Token, []);
         this.crowdsale = await ReddalCrowdsale.new(RATE, wallet, this.token.address, creator, 1);
         this.token.transfer(this.crowdsale.address, await this.token.totalSupply());
     });
@@ -38,7 +40,7 @@ contract('ReddalCrowdsale', function ([ creator, investor, wallet ]) {
 
         await this.crowdsale.buyTokens(investor, { value: investmentAmount, from: investor });
 
-        expect(await this.token.balanceOf(investor)).to.be.bignumber.equal(expectedTokenAmount);
+        expect(await this.token.balanceOf(investor)).to.be.equal(expectedTokenAmount.toString());
     });
 
     it('should be pausable', async function () {

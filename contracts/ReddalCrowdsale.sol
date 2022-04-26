@@ -70,7 +70,7 @@ contract ReddalCrowdsale is Crowdsale, Pausable, Ownable {
 
     /**
      * Updates the _rate value calculating the exchange rate between ETH and Reddal using the ETH to USD rate
-     * @param new ETH to USD rate to be used in the calculation of the exchanges during the crowdsale
+     * @param newETHUSDRate ETH to USD rate to be used in the calculation of the exchanges during the crowdsale
      */
     function updateETHUSDRate(uint newETHUSDRate) only(updater) public {
         require(msg.sender == updater);
