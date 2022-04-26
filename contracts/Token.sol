@@ -1,12 +1,22 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.4;
 
-import "openzeppelin4/token/ERC20/ERC20.sol";
-import "openzeppelin4/security/Pausable.sol";
-import "openzeppelin4/access/Ownable.sol";
+import "@openzeppelin/contracts-upgradeable/token/ERC20/ERC20Upgradeable.sol";
+import "@openzeppelin/contracts-upgradeable/security/PausableUpgradeable.sol";
+import "@openzeppelin/contracts-upgradeable/access/OwnableUpgradeable.sol";
+import "@openzeppelin/contracts-upgradeable/proxy/utils/Initializable.sol";
+import "@openzeppelin/contracts-upgradeable/proxy/utils/UUPSUpgradeable.sol";
 
-contract Reddal is ERC20, Pausable, Ownable {
-    constructor() ERC20("Reddal", "REDDAL") {
+contract Reddal is Initializable, ERC20Upgradeable, PausableUpgradeable, OwnableUpgradeable, UUPSUpgradeable {
+    /// @custom:oz-upgrades-unsafe-allow constructor
+    constructor() initializer {}
+
+    function initialize() initializer public {
+        __ERC20_init("Reddal", "REDDAL");
+        __Pausable_init();
+        __Ownable_init();
+        __UUPSUpgradeable_init();
+
         _mint(msg.sender, 10000 * 10 ** decimals());
     }
 
@@ -25,4 +35,10 @@ contract Reddal is ERC20, Pausable, Ownable {
     {
         super._beforeTokenTransfer(from, to, amount);
     }
+
+    function _authorizeUpgrade(address newImplementation)
+    internal
+    onlyOwner
+    override
+    {}
 }
