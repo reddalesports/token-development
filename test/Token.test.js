@@ -1,4 +1,4 @@
-// test/SimpleToken.test.js
+// test/Token.test.js
 // SPDX-License-Identifier: MIT
 
 // Based on https://github.com/OpenZeppelin/openzeppelin-solidity/blob/v2.5.1/test/examples/SimpleToken.test.js
@@ -9,21 +9,23 @@ const { expect } = require('chai');
 const { BN, expectEvent, expectRevert, constants } = require('@openzeppelin/test-helpers');
 
 // Load compiled artifacts
-const SimpleToken = artifacts.require('SimpleToken');
+const REDDAL = artifacts.require('Reddal');
 
 // Start test block
-contract('SimpleToken', function ([ creator, other ]) {
+contract('Reddal', function ([ creator, other ]) {
 
-    const NAME = 'SimpleToken';
-    const SYMBOL = 'SIM';
+    const NAME = 'Reddal';
+    const SYMBOL = 'REDDAL';
     const TOTAL_SUPPLY = new BN('10000000000000000000000');
 
     beforeEach(async function () {
-        this.token = await SimpleToken.new(NAME, SYMBOL, TOTAL_SUPPLY, { from: creator });
+        this.token = await REDDAL.new();
     });
 
     it('has a total supply', async function () {
         // Use large integer comparisons
+        // const token = await REDDAL.new();
+        // REDDAL.setAsDeployed(token);
         expect(await this.token.totalSupply()).to.be.bignumber.equal(TOTAL_SUPPLY);
     });
 

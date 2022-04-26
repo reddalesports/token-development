@@ -1,7 +1,4 @@
 # token-development
-Token development repository
-
-SimpleToken and SimpleCrowdsale follow the guide in: https://forum.openzeppelin.com/t/simple-erc20-crowdsale/4863
 
 # Setup guide:
 
@@ -10,86 +7,68 @@ SimpleToken and SimpleCrowdsale follow the guide in: https://forum.openzeppelin.
 run `npm install`
 
 ## Development
-Run `npx truffle develop`
-it yields:
+In order to deploy to a local network we can do the following:
 
-```$ npx truffle develop
-Truffle Develop started at http://127.0.0.1:9545/
-...
-truffle(develop)>
+`npx hardhat run scripts/deploy.js --network localhost`
+
+Save the address of the contracts from the result of the deployment above
+
+```solidity
+Token address: 0x3347B4d90ebe72BeFb30444C9966B2B990aE9FcB
+Crowdsale address: 0x3155755b79aA083bd953911C92705B7aA82a18F9
 ```
 
-We can now start using the development network, to do so we need to
-`migrate` to compile and deploy the contracts to the local development
-network
-After that we can start interacting with the `token`, `crowdsale`, and
-`network`
+in order to run the console we can:
+`npx hardhat console --network localhost`
+
+```solidity
+const Token  = await ethers.getContractFactory('Reddal');
+const reddal = await Token.attach('0x3347B4d90ebe72BeFb30444C9966B2B990aE9FcB')
 ```
-truffle(develop)> migrate
-Compiling your contracts...
-===========================
-...
-Starting migrations...
-======================
-> Network name:    'develop'
-> Network id:      5777
-> Block gas limit: 6721975 (0x6691b7)
 
+```solidity
+> await reddal.name()
+'Reddal' 
+```
 
-1_initial_migration.js
-...
-2_deploy.js
-===========
-
-   Deploying 'SimpleToken'
-...
-   Deploying 'SimpleCrowdsale'
-...
-truffle(develop)> token = await SimpleToken.deployed()
-undefined
-truffle(develop)> crowdsale = await SimpleCrowdsale.deployed()
-undefined
-truffle(develop)> (await token.balanceOf(crowdsale.address)).toString()
-'10000000000000000000000'
-truffle(develop)> (await token.totalSupply()).toString()
-'10000000000000000000000'
+```solidity
+> await reddal.totalSupply()
+BigNumber { value: "10000000000000000000000" }
 ```
 
 ## Tests
 
-run `npx ganache-cli --deterministic`
-in a different terminal `npx truffle test`
+run `npx hardhat test`
 
-To run the test coverage:
-`npx truffle run coverage`
+To run the test with coverage:
+`npx hardhat coverage`
 
-```solidity
-  6 passing (632ms)
+
+```
+  Contract: ReddalCrowdsale
+    ✔ should create crowdsale with correct parameters
+    ✔ should accept payments
+    ✔ should be pausable
+    ✔ should be resumable
+    ✔ should use new ETHUSD rate
+
+  Contract: Reddal
+    ✔ has a total supply
+    ✔ has a name
+    ✔ has a symbol
+    ✔ assigns the initial total supply to the creator
+
+
+  9 passing (350ms)
 
 ----------------------|----------|----------|----------|----------|----------------|
 File                  |  % Stmts | % Branch |  % Funcs |  % Lines |Uncovered Lines |
 ----------------------|----------|----------|----------|----------|----------------|
- contracts/           |      100 |      100 |      100 |      100 |                |
-  SimpleCrowdsale.sol |      100 |      100 |      100 |      100 |                |
-  SimpleToken.sol     |      100 |      100 |      100 |      100 |                |
+ contracts/           |    55.56 |       50 |    76.92 |    63.16 |                |
+  ReddalCrowdsale.sol |    64.29 |       50 |      100 |    73.33 |    37,78,79,80 |
+  Token.sol           |       25 |      100 |       25 |       25 |       14,18,26 |
 ----------------------|----------|----------|----------|----------|----------------|
-All files             |      100 |      100 |      100 |      100 |                |
+All files             |    55.56 |       50 |    76.92 |    63.16 |                |
 ----------------------|----------|----------|----------|----------|----------------|
 
-> Istanbul reports written to ./coverage/ and ./coverage.json
-> solidity-coverage cleaning up, shutting down ganache server
 ```
-
-# CrowdSale
-
-## Documentation
-https://docs.openzeppelin.com/contracts/2.x/crowdsales 
-
-## Example code
-
-https://github.com/OpenZeppelin/openzeppelin-contracts/blob/v2.5.1/contracts/examples/SampleCrowdsale.sol
-
-# Truffle configuration
-
-## Multiple solc versions
-https://ethereum.stackexchange.com/questions/73662/using-two-solc-versions-within-the-same-truffle-project

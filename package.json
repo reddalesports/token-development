@@ -1,16 +1,25 @@
 {
   "dependencies": {
-    "@openzeppelin/contracts": "^2.5.1",
+    "@openzeppelin/contracts-upgradeable": "^4.5.2",
+    "openzeppelin2": "npm:@openzeppelin/contracts@^2.5.1",
+    "openzeppelin4": "npm:@openzeppelin/contracts@^4.5.0",
     "truffle": "^5.1.65"
   },
   "devDependencies": {
     "@codechecks/client": "^0.1.12",
+    "@nomiclabs/hardhat-ethers": "^2.0.5",
+    "@nomiclabs/hardhat-truffle5": "^2.0.5",
+    "@nomiclabs/hardhat-waffle": "^2.0.3",
+    "@nomiclabs/hardhat-web3": "^2.0.0",
     "@openzeppelin/test-helpers": "^0.5.15",
     "@truffle/hdwallet-provider": "^2.0.3",
     "chai": "^4.3.6",
     "dotenv": "^16.0.0",
+    "ethereum-waffle": "^3.4.4",
     "ganache-cli": "^6.12.2",
+    "hardhat": "^2.9.3",
     "npm": "^8.4.1",
-    "solidity-coverage": "^0.7.18"
+    "solidity-coverage": "^0.7.21",
+    "web3": "^1.7.3"
   }
 }

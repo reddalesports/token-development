@@ -1,4 +1,4 @@
-// test/SimpleCrowdsale.test.js
+// test/ReddalCrowdsale.test.js
 // SPDX-License-Identifier: MIT
 
 // Based on https://github.com/OpenZeppelin/openzeppelin-solidity/blob/v2.5.1/test/examples/SimpleToken.test.js
@@ -9,20 +9,20 @@ const { expect } = require('chai');
 const { BN, ether, expectEvent, expectRevert, constants } = require('@openzeppelin/test-helpers');
 
 // Load compiled artifacts
-const SimpleToken = artifacts.require('SimpleToken');
-const SimpleCrowdsale = artifacts.require('SimpleCrowdsale');
+const REDDAL = artifacts.require('Reddal');
+const ReddalCrowdsale = artifacts.require('ReddalCrowdsale');
 
 // Start test block
-contract('SimpleCrowdsale', function ([ creator, investor, wallet ]) {
+contract('ReddalCrowdsale', function ([ creator, investor, wallet ]) {
 
-    const NAME = 'SimpleToken';
+    const NAME = 'REDDAL';
     const SYMBOL = 'SIM';
     const TOTAL_SUPPLY = new BN('10000000000000000000000');
     const RATE = new BN(10);
 
     beforeEach(async function () {
-        this.token = await SimpleToken.new(NAME, SYMBOL, TOTAL_SUPPLY, { from: creator });
-        this.crowdsale = await SimpleCrowdsale.new(RATE, wallet, this.token.address);
+        this.token = await REDDAL.new();
+        this.crowdsale = await ReddalCrowdsale.new(RATE, wallet, this.token.address, creator, 1);
         this.token.transfer(this.crowdsale.address, await this.token.totalSupply());
     });
 
@@ -39,5 +39,27 @@ contract('SimpleCrowdsale', function ([ creator, investor, wallet ]) {
         await this.crowdsale.buyTokens(investor, { value: investmentAmount, from: investor });
 
         expect(await this.token.balanceOf(investor)).to.be.bignumber.equal(expectedTokenAmount);
+    });
+
+    it('should be pausable', async function () {
+        await this.crowdsale.pauseICO()
+
+        expect(await this.crowdsale.paused()).to.be.equal(true);
+    });
+
+    it('should be resumable', async function () {
+        await this.crowdsale.pauseICO()
+        expect(await this.crowdsale.paused()).to.be.equal(true);
+
+        await this.crowdsale.unpauseICO()
+        expect(await this.crowdsale.paused()).to.be.equal(false);
+
+    });
+
+    it('should use new ETHUSD rate', async function () {
+        value = new BN('42000000000000000000');
+        await this.crowdsale.updateETHUSDRate( new BN('42'))
+        expect(await this.crowdsale.ethusdRate()).to.be.bignumber.equal(new BN('42'));
+        expect(await this.crowdsale.rate()).to.be.bignumber.equal(value);
     });
 });
