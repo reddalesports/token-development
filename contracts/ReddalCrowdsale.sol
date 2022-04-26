@@ -15,9 +15,6 @@ contract ReddalCrowdsale is Crowdsale, Pausable, Ownable {
     address public updater; //the address who is eligible to update the ETH/USD price
 
     // How many token units a buyer gets per wei.
-    // The rate is the conversion between wei and the smallest and indivisible token unit.
-    // So, if you are using a rate of 1 with a ERC20Detailed token with 3 decimals called TOK
-    // 1 wei will give you 1 unit, or 0.001 TOK.
     uint256 private _rate;
 
     modifier only(address _address) {
@@ -33,7 +30,7 @@ contract ReddalCrowdsale is Crowdsale, Pausable, Ownable {
         uint256 price
     ) public Crowdsale(rate, wallet, token) {
         _price = price;
-        _rate = rate; //todo fix me
+        _rate = rate; //TODO use the same calculation as in updateETHUSDRate()
         updater = _updater;
     }
 
@@ -71,13 +68,14 @@ contract ReddalCrowdsale is Crowdsale, Pausable, Ownable {
         return ETHUSD;
     }
 
-    // Update current ETHUSD price.
-    // Calculates the rate
+    /**
+     * Updates the _rate value calculating the exchange rate between ETH and Reddal using the ETH to USD rate
+     * @param new ETH to USD rate to be used in the calculation of the exchanges during the crowdsale
+     */
     function updateETHUSDRate(uint newETHUSDRate) only(updater) public {
         require(msg.sender == updater);
         require(newETHUSDRate != 0);
         ETHUSD = newETHUSDRate;
         _rate = ETHUSD * 10**uint(18) * _price;
     }
-
 }
