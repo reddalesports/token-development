@@ -2,3 +2,5 @@
 /* tslint:disable */
 /* eslint-disable */
 export * as draftIerc1822UpgradeableSol from "./draft-IERC1822Upgradeable.sol";
+export { IERC3156FlashBorrowerUpgradeable__factory } from "./IERC3156FlashBorrowerUpgradeable__factory";
+export { IERC3156FlashLenderUpgradeable__factory } from "./IERC3156FlashLenderUpgradeable__factory";

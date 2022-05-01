@@ -7,6 +7,7 @@ import "@typechain/hardhat";
 import "@openzeppelin/hardhat-upgrades";
 import "hardhat-gas-reporter";
 import "solidity-coverage";
+const ethers = require("ethers").ethers;
 
 dotenv.config();
 
@@ -30,8 +31,13 @@ const config: HardhatUserConfig = {
         version: "0.5.5",
       },
       {
-        version: "0.8.9",
-        settings: {},
+        version: "0.8.4",
+        settings: {
+          optimizer: {
+            enabled: true,
+            runs: 200,
+          },
+        },
       },
     ],
   },
@@ -44,6 +50,7 @@ const config: HardhatUserConfig = {
     },
     ropsten: {
       url: process.env.ROPSTEN_URL || "",
+      gasPrice: 50000000000,
       accounts:
         process.env.PRIVATE_KEY !== undefined ? [process.env.PRIVATE_KEY] : [],
     },
