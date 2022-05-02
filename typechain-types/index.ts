@@ -30,6 +30,8 @@ export type { ReddalCrowdsale } from "./contracts/ReddalCrowdsale";
 export { ReddalCrowdsale__factory } from "./factories/contracts/ReddalCrowdsale__factory";
 export type { Reddal } from "./contracts/ReddalToken.sol/Reddal";
 export { Reddal__factory } from "./factories/contracts/ReddalToken.sol/Reddal__factory";
+export type { ReddalV2 } from "./contracts/ReddalToken.sol/ReddalV2";
+export { ReddalV2__factory } from "./factories/contracts/ReddalToken.sol/ReddalV2__factory";
 export type { PauserRole } from "./openzeppelin2/access/roles/PauserRole";
 export { PauserRole__factory } from "./factories/openzeppelin2/access/roles/PauserRole__factory";
 export type { Crowdsale } from "./openzeppelin2/crowdsale/Crowdsale";

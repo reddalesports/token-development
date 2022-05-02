@@ -1,5 +1,5 @@
 import hre, { ethers, upgrades } from "hardhat";
-import { expect } from "chai";
+import {assert, expect} from "chai";
 
 // Import utilities from Test Helpers
 const { BN, ether, expectEvent, expectRevert, constants } = require('@openzeppelin/test-helpers');
@@ -13,7 +13,7 @@ describe("Deploying Reddal Crowdsale", function () {
 
     beforeEach(async function () {
         const Token = await ethers.getContractFactory("Reddal");
-        this.token = await upgrades.deployProxy(Token, []);
+        this.token = await upgrades.deployProxy(Token, {kind: "uups"});
         const [beneficiary, updater] = await ethers.getSigners();
         const ReddalCrowdsale = await ethers.getContractFactory("ReddalCrowdsale");
         this.crowdsale = await ReddalCrowdsale.deploy(10, beneficiary.address, this.token.address, updater.address, 1000);
@@ -62,8 +62,16 @@ describe("Deploying Reddal Crowdsale", function () {
 
         await this.crowdsale.unpauseICO()
         expect(await this.crowdsale.paused()).to.be.equal(false);
-
     });
 
+    it('should be upgradable', async function(){
+
+        const TokenV2 = await ethers.getContractFactory("ReddalV2");
+        this.tokenV2 = await upgrades.deployProxy(TokenV2, []);
+
+        assert(await this.tokenV2.version() === "v2!");
+        this.tokenUpgraded = await upgrades.upgradeProxy(this.token.address, TokenV2)
+        assert(await this.tokenUpgraded.version() === "v2!");
+    })
 
 });

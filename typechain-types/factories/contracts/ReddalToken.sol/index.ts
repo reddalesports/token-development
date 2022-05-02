@@ -2,3 +2,4 @@
 /* tslint:disable */
 /* eslint-disable */
 export { Reddal__factory } from "./Reddal__factory";
+export { ReddalV2__factory } from "./ReddalV2__factory";

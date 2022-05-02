@@ -57,6 +57,10 @@ declare module "hardhat/types/runtime" {
       signerOrOptions?: ethers.Signer | FactoryOptions
     ): Promise<Contracts.Reddal__factory>;
     getContractFactory(
+      name: "ReddalV2",
+      signerOrOptions?: ethers.Signer | FactoryOptions
+    ): Promise<Contracts.ReddalV2__factory>;
+    getContractFactory(
       name: "PauserRole",
       signerOrOptions?: ethers.Signer | FactoryOptions
     ): Promise<Contracts.PauserRole__factory>;
@@ -140,6 +144,11 @@ declare module "hardhat/types/runtime" {
       address: string,
       signer?: ethers.Signer
     ): Promise<Contracts.Reddal>;
+    getContractAt(
+      name: "ReddalV2",
+      address: string,
+      signer?: ethers.Signer
+    ): Promise<Contracts.ReddalV2>;
     getContractAt(
       name: "PauserRole",
       address: string,

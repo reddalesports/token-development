@@ -39,3 +39,9 @@ contract Reddal is Initializable, ERC20Upgradeable, PausableUpgradeable, Ownable
     override
     {}
 }
+
+contract ReddalV2 is Reddal {
+    function version() pure public returns (string memory) {
+        return "v2!";
+    }
+}

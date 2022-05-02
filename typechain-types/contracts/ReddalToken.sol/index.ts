@@ -2,3 +2,4 @@
 /* tslint:disable */
 /* eslint-disable */
 export type { Reddal } from "./Reddal";
+export type { ReddalV2 } from "./ReddalV2";
