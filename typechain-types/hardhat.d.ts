@@ -17,21 +17,9 @@ declare module "hardhat/types/runtime" {
       signerOrOptions?: ethers.Signer | FactoryOptions
     ): Promise<Contracts.OwnableUpgradeable__factory>;
     getContractFactory(
-      name: "IVotesUpgradeable",
-      signerOrOptions?: ethers.Signer | FactoryOptions
-    ): Promise<Contracts.IVotesUpgradeable__factory>;
-    getContractFactory(
       name: "IERC1822ProxiableUpgradeable",
       signerOrOptions?: ethers.Signer | FactoryOptions
     ): Promise<Contracts.IERC1822ProxiableUpgradeable__factory>;
-    getContractFactory(
-      name: "IERC3156FlashBorrowerUpgradeable",
-      signerOrOptions?: ethers.Signer | FactoryOptions
-    ): Promise<Contracts.IERC3156FlashBorrowerUpgradeable__factory>;
-    getContractFactory(
-      name: "IERC3156FlashLenderUpgradeable",
-      signerOrOptions?: ethers.Signer | FactoryOptions
-    ): Promise<Contracts.IERC3156FlashLenderUpgradeable__factory>;
     getContractFactory(
       name: "IBeaconUpgradeable",
       signerOrOptions?: ethers.Signer | FactoryOptions
@@ -52,30 +40,6 @@ declare module "hardhat/types/runtime" {
       name: "ERC20Upgradeable",
       signerOrOptions?: ethers.Signer | FactoryOptions
     ): Promise<Contracts.ERC20Upgradeable__factory>;
-    getContractFactory(
-      name: "ERC20PermitUpgradeable",
-      signerOrOptions?: ethers.Signer | FactoryOptions
-    ): Promise<Contracts.ERC20PermitUpgradeable__factory>;
-    getContractFactory(
-      name: "IERC20PermitUpgradeable",
-      signerOrOptions?: ethers.Signer | FactoryOptions
-    ): Promise<Contracts.IERC20PermitUpgradeable__factory>;
-    getContractFactory(
-      name: "ERC20BurnableUpgradeable",
-      signerOrOptions?: ethers.Signer | FactoryOptions
-    ): Promise<Contracts.ERC20BurnableUpgradeable__factory>;
-    getContractFactory(
-      name: "ERC20FlashMintUpgradeable",
-      signerOrOptions?: ethers.Signer | FactoryOptions
-    ): Promise<Contracts.ERC20FlashMintUpgradeable__factory>;
-    getContractFactory(
-      name: "ERC20SnapshotUpgradeable",
-      signerOrOptions?: ethers.Signer | FactoryOptions
-    ): Promise<Contracts.ERC20SnapshotUpgradeable__factory>;
-    getContractFactory(
-      name: "ERC20VotesUpgradeable",
-      signerOrOptions?: ethers.Signer | FactoryOptions
-    ): Promise<Contracts.ERC20VotesUpgradeable__factory>;
     getContractFactory(
       name: "IERC20MetadataUpgradeable",
       signerOrOptions?: ethers.Signer | FactoryOptions
@@ -127,25 +91,10 @@ declare module "hardhat/types/runtime" {
       signer?: ethers.Signer
     ): Promise<Contracts.OwnableUpgradeable>;
     getContractAt(
-      name: "IVotesUpgradeable",
-      address: string,
-      signer?: ethers.Signer
-    ): Promise<Contracts.IVotesUpgradeable>;
-    getContractAt(
       name: "IERC1822ProxiableUpgradeable",
       address: string,
       signer?: ethers.Signer
     ): Promise<Contracts.IERC1822ProxiableUpgradeable>;
-    getContractAt(
-      name: "IERC3156FlashBorrowerUpgradeable",
-      address: string,
-      signer?: ethers.Signer
-    ): Promise<Contracts.IERC3156FlashBorrowerUpgradeable>;
-    getContractAt(
-      name: "IERC3156FlashLenderUpgradeable",
-      address: string,
-      signer?: ethers.Signer
-    ): Promise<Contracts.IERC3156FlashLenderUpgradeable>;
     getContractAt(
       name: "IBeaconUpgradeable",
       address: string,
@@ -171,36 +120,6 @@ declare module "hardhat/types/runtime" {
       address: string,
       signer?: ethers.Signer
     ): Promise<Contracts.ERC20Upgradeable>;
-    getContractAt(
-      name: "ERC20PermitUpgradeable",
-      address: string,
-      signer?: ethers.Signer
-    ): Promise<Contracts.ERC20PermitUpgradeable>;
-    getContractAt(
-      name: "IERC20PermitUpgradeable",
-      address: string,
-      signer?: ethers.Signer
-    ): Promise<Contracts.IERC20PermitUpgradeable>;
-    getContractAt(
-      name: "ERC20BurnableUpgradeable",
-      address: string,
-      signer?: ethers.Signer
-    ): Promise<Contracts.ERC20BurnableUpgradeable>;
-    getContractAt(
-      name: "ERC20FlashMintUpgradeable",
-      address: string,
-      signer?: ethers.Signer
-    ): Promise<Contracts.ERC20FlashMintUpgradeable>;
-    getContractAt(
-      name: "ERC20SnapshotUpgradeable",
-      address: string,
-      signer?: ethers.Signer
-    ): Promise<Contracts.ERC20SnapshotUpgradeable>;
-    getContractAt(
-      name: "ERC20VotesUpgradeable",
-      address: string,
-      signer?: ethers.Signer
-    ): Promise<Contracts.ERC20VotesUpgradeable>;
     getContractAt(
       name: "IERC20MetadataUpgradeable",
       address: string,

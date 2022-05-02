@@ -76,6 +76,6 @@ contract ReddalCrowdsale is Crowdsale, Pausable, Ownable {
         require(msg.sender == updater);
         require(newETHUSDRate != 0);
         ETHUSD = newETHUSDRate;
-        _rate = ETHUSD * 10**uint(18) * _price;
+        _rate = ETHUSD * _price;
     }
 }
