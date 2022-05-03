@@ -30,8 +30,17 @@ const config: HardhatUserConfig = {
       {
         version: "0.5.5",
       },
+      // {
+      //   version: "0.8.4",
+      //   settings: {
+      //     optimizer: {
+      //       enabled: true,
+      //       runs: 200,
+      //     },
+      //   },
+      // },
       {
-        version: "0.8.4",
+        version: "0.8.2",
         settings: {
           optimizer: {
             enabled: true,
@@ -47,6 +56,13 @@ const config: HardhatUserConfig = {
   networks: {
     hardhat: {
       chainId: 1337,
+    },
+    kovan: {
+      url: `https://kovan.infura.io/v3/${process.env.INFURA_API_KEY}`,
+      accounts: {
+        mnemonic: `${process.env.MNENOMIC}`,
+      },
+      gas: "auto"
     },
     ropsten: {
       url: process.env.ROPSTEN_URL || "",
