@@ -36,8 +36,9 @@ async function main() {
   await reddalToken.deployed();
   await reddalCrowdsale.deployed();
 
-  console.log("Reddal deployed to:", reddalToken.address);
+  console.log("Reddal Proxy deployed to:", reddalToken.address);
   console.log("ReddalCrowdsale deployed to:", reddalCrowdsale.address);
+  console.log("Reddal Token Implementation deployed to:", await upgrades.erc1967.getImplementationAddress(reddalToken.address))
 }
 
 // We recommend this pattern to be able to use async/await everywhere
