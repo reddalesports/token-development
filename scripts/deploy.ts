@@ -13,7 +13,7 @@ async function main() {
   //
   // If this script is run directly using `node` you may want to call compile
   // manually to make sure everything is compiled
-  // await hre.run('compile');
+  await hre.run('compile');
 
   // We get the contract to deploy
 
@@ -28,11 +28,16 @@ async function main() {
   console.log("Account balance:", (await deployer.getBalance()).toString());
 
   const Reddal = await ethers.getContractFactory("Reddal");
+  const ReddalV2 = await ethers.getContractFactory("ReddalV2");
   const reddalToken = await upgrades.deployProxy(Reddal, [],{ kind: "uups" });
   await reddalToken.deployed();
 
   // upgrade to "latest" ?
   const implementationToken = await upgrades.upgradeProxy(reddalToken.address, Reddal)
+  await implementationToken.deployed();
+  // Upgrade to V2?
+  const implementationTokenV2 = await upgrades.upgradeProxy(implementationToken.address, ReddalV2)
+  await implementationTokenV2.deployed();
   // await implementationToken.deployed()
 
   const ReddalCrowdSale = await ethers.getContractFactory("ReddalCrowdsale");
@@ -56,9 +61,10 @@ async function main() {
 
   console.log("Reddal Proxy deployed to:", reddalToken.address);
   console.log("ReddalCrowdsale deployed to:", reddalCrowdsale.address);
-  console.log("Reddal Token Implementation deployed to:", await upgrades.erc1967.getImplementationAddress(reddalToken.address))
-  console.log("Reddal Token Implementation deployed to [NEW]:", await getImplementationAddress(ethers.provider, reddalToken.address))
+  console.log("Reddal Token Implementation deployed to:", await upgrades.erc1967.getImplementationAddress(implementationToken.address))
+  console.log("Reddal Token Implementation deployed to [NEW]:", await getImplementationAddress(ethers.provider, implementationTokenV2.address))
   console.log("Implementation Token Address: ", implementationToken.address)
+  console.log("Implementation Token V2 Address: ", implementationTokenV2.address)
 
   // await hre.run("verify:verify", {
   //   address: await upgrades.erc1967.getImplementationAddress(reddalToken.address),

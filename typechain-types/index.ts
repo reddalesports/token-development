@@ -26,6 +26,16 @@ export type { IERC20MetadataUpgradeable } from "./@openzeppelin/contracts-upgrad
 export { IERC20MetadataUpgradeable__factory } from "./factories/@openzeppelin/contracts-upgradeable/token/ERC20/extensions/IERC20MetadataUpgradeable__factory";
 export type { IERC20Upgradeable } from "./@openzeppelin/contracts-upgradeable/token/ERC20/IERC20Upgradeable";
 export { IERC20Upgradeable__factory } from "./factories/@openzeppelin/contracts-upgradeable/token/ERC20/IERC20Upgradeable__factory";
+export type { IERC1822Proxiable } from "./@openzeppelin/contracts/interfaces/draft-IERC1822.sol/IERC1822Proxiable";
+export { IERC1822Proxiable__factory } from "./factories/@openzeppelin/contracts/interfaces/draft-IERC1822.sol/IERC1822Proxiable__factory";
+export type { IBeacon } from "./@openzeppelin/contracts/proxy/beacon/IBeacon";
+export { IBeacon__factory } from "./factories/@openzeppelin/contracts/proxy/beacon/IBeacon__factory";
+export type { ERC1967Proxy } from "./@openzeppelin/contracts/proxy/ERC1967/ERC1967Proxy";
+export { ERC1967Proxy__factory } from "./factories/@openzeppelin/contracts/proxy/ERC1967/ERC1967Proxy__factory";
+export type { ERC1967Upgrade } from "./@openzeppelin/contracts/proxy/ERC1967/ERC1967Upgrade";
+export { ERC1967Upgrade__factory } from "./factories/@openzeppelin/contracts/proxy/ERC1967/ERC1967Upgrade__factory";
+export type { Proxy } from "./@openzeppelin/contracts/proxy/Proxy";
+export { Proxy__factory } from "./factories/@openzeppelin/contracts/proxy/Proxy__factory";
 export type { ReddalCrowdsale } from "./contracts/ReddalCrowdsale";
 export { ReddalCrowdsale__factory } from "./factories/contracts/ReddalCrowdsale__factory";
 export type { Reddal } from "./contracts/ReddalToken.sol/Reddal";
