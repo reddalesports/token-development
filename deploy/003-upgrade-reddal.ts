@@ -6,15 +6,18 @@ const func: DeployFunction = async function (hre: HardhatRuntimeEnvironment) {
     const { deploy, log, get } = deployments
 
     const {deployer} = await getNamedAccounts();
-    const reddalToken = await get("Reddal")
 
-    await deploy('ReddalCrowdsale', {
-        contract: "ReddalCrowdsale",
+    await deploy('ReddalUpgrade', {
+        contract: 'ReddalV2',
         from: deployer,
-        args: [ 1000, deployer, reddalToken.address, deployer, 1],
+        args: [],
+        proxy: {
+            proxyContract: 'ERC1967Proxy',
+            proxyArgs: ['{implementation}', '{data}'],
+        },
         log: true,
     });
 };
 
 export default func;
-func.tags = ['ReddalCrowdsale', 'token'];
+func.tags = ['ReddalTokenUpgrade'];
