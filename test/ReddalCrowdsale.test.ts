@@ -76,4 +76,35 @@ describe("Deploying Reddal Crowdsale", function () {
         assert(await this.tokenUpgraded.version() === "v2!");
     })
 
+    it('should be enableable', async function(){
+        await this.crowdsale.disable()
+        expect(await this.crowdsale.enabled()).to.be.equal(false);
+
+        await this.crowdsale.enable()
+        expect(await this.crowdsale.enabled()).to.be.equal(true);
+    })
+
+    it('should be disableable', async function(){
+        expect(await this.crowdsale.enabled()).to.be.equal(true);
+
+        await this.crowdsale.disable()
+        expect(await this.crowdsale.enabled()).to.be.equal(false);
+    })
+
+    it('should be endable', async function(){
+        expect(await this.crowdsale.ended()).to.be.equal(false);
+
+        await this.crowdsale.end()
+        expect(await this.crowdsale.ended()).to.be.equal(true);
+    })
+
+
+    it('should be resume after ending', async function(){
+        await this.crowdsale.end()
+        expect(await this.crowdsale.ended()).to.be.equal(true);
+
+        await this.crowdsale.resume()
+        expect(await this.crowdsale.ended()).to.be.equal(false);
+    })
+
 });

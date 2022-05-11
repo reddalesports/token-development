@@ -191,9 +191,7 @@ contract ReddalCrowdsale is Crowdsale, Pausable, Ownable {
      */
     function end() public whenActive {
         require(_enablers.has(msg.sender), "DOES_NOT_HAVE_ENABLER_ROLE");
-         _enabled = false;
-        _ended = false;
-        emit Stopped(_msgSender());
+        _ended = true;
         emit Ended(_msgSender());
     }
 
@@ -202,9 +200,7 @@ contract ReddalCrowdsale is Crowdsale, Pausable, Ownable {
      */
     function resume() public whenEnded {
         require(_enablers.has(msg.sender), "DOES_NOT_HAVE_ENABLER_ROLE");
-         _enabled = false;
         _ended = false;
-        emit Enabled(_msgSender());
         emit Resume(_msgSender());
     }
 }
