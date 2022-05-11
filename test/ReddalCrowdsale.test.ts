@@ -38,6 +38,8 @@ describe("Deploying Reddal Crowdsale", function () {
 
         await this.crowdsale.buyTokens(investor.address, { value: investmentAmount});
 
+        // expect(await this.crowdsale.enabled()).to.be.equal(true);
+        // expect(await this.crowdsale.ended()).to.be.equal(false);
         expect(await this.token.balanceOf(investor.address)).to.be.equal(expectedTokenAmount.toString());
     });
 

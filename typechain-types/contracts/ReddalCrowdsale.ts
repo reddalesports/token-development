@@ -30,6 +30,7 @@ import type {
 export interface ReddalCrowdsaleInterface extends utils.Interface {
   functions: {
     "resume()": FunctionFragment;
+    "ended()": FunctionFragment;
     "_price()": FunctionFragment;
     "enabled()": FunctionFragment;
     "rate()": FunctionFragment;
@@ -61,6 +62,7 @@ export interface ReddalCrowdsaleInterface extends utils.Interface {
   getFunction(
     nameOrSignatureOrTopic:
       | "resume"
+      | "ended"
       | "_price"
       | "enabled"
       | "rate"
@@ -90,6 +92,7 @@ export interface ReddalCrowdsaleInterface extends utils.Interface {
   ): FunctionFragment;
 
   encodeFunctionData(functionFragment: "resume", values?: undefined): string;
+  encodeFunctionData(functionFragment: "ended", values?: undefined): string;
   encodeFunctionData(functionFragment: "_price", values?: undefined): string;
   encodeFunctionData(functionFragment: "enabled", values?: undefined): string;
   encodeFunctionData(functionFragment: "rate", values?: undefined): string;
@@ -136,6 +139,7 @@ export interface ReddalCrowdsaleInterface extends utils.Interface {
   encodeFunctionData(functionFragment: "token", values?: undefined): string;
 
   decodeFunctionResult(functionFragment: "resume", data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: "ended", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "_price", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "enabled", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "rate", data: BytesLike): Result;
@@ -312,6 +316,8 @@ export interface ReddalCrowdsale extends BaseContract {
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
+    ended(overrides?: CallOverrides): Promise<[boolean]>;
+
     _price(overrides?: CallOverrides): Promise<[BigNumber]>;
 
     enabled(overrides?: CallOverrides): Promise<[boolean]>;
@@ -399,6 +405,8 @@ export interface ReddalCrowdsale extends BaseContract {
     overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
+  ended(overrides?: CallOverrides): Promise<boolean>;
+
   _price(overrides?: CallOverrides): Promise<BigNumber>;
 
   enabled(overrides?: CallOverrides): Promise<boolean>;
@@ -483,6 +491,8 @@ export interface ReddalCrowdsale extends BaseContract {
 
   callStatic: {
     resume(overrides?: CallOverrides): Promise<void>;
+
+    ended(overrides?: CallOverrides): Promise<boolean>;
 
     _price(overrides?: CallOverrides): Promise<BigNumber>;
 
@@ -596,6 +606,8 @@ export interface ReddalCrowdsale extends BaseContract {
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
+    ended(overrides?: CallOverrides): Promise<BigNumber>;
+
     _price(overrides?: CallOverrides): Promise<BigNumber>;
 
     enabled(overrides?: CallOverrides): Promise<BigNumber>;
@@ -683,6 +695,8 @@ export interface ReddalCrowdsale extends BaseContract {
     resume(
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
+
+    ended(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
     _price(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 

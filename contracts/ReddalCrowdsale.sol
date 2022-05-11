@@ -61,10 +61,12 @@ contract ReddalCrowdsale is Crowdsale, Pausable, Ownable {
         unpause();
     }
 
-    function _beforeTokenTransfer(address beneficiary, uint256 weiAmount)
+    function _preValidatePurchase(address beneficiary, uint256 weiAmount)
         view
         internal
         whenNotPaused
+        whenEnabled
+        whenActive
     {
         super._preValidatePurchase(beneficiary, weiAmount);
     }
@@ -123,6 +125,13 @@ contract ReddalCrowdsale is Crowdsale, Pausable, Ownable {
      */
     function enabled() public view returns (bool) {
         return _enabled;
+    }
+
+    /**
+    * @dev Returns true if the contract is enabled, and false otherwise.
+     */
+    function ended() public view returns (bool) {
+        return _ended;
     }
 
     /**
