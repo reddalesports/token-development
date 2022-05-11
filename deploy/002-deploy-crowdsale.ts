@@ -11,9 +11,14 @@ const func: DeployFunction = async function (hre: HardhatRuntimeEnvironment) {
     await deploy('ReddalCrowdsale', {
         contract: "ReddalCrowdsale",
         from: deployer,
-        args: [ 1000, deployer, reddalToken.address, deployer, 1],
+        args: [ 1000, deployer, reddalToken.address, deployer, 1, deployer, deployer],
         log: true,
     });
+
+    const reddalCrowdsale = await get("ReddalCrowdsale")
+    // await hre.run("verify:verify", {
+    //     address: reddalCrowdsale.address,
+    // });
 };
 
 export default func;

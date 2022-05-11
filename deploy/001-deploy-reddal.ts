@@ -3,7 +3,7 @@ import {DeployFunction} from 'hardhat-deploy/types';
 
 const func: DeployFunction = async function (hre: HardhatRuntimeEnvironment) {
     const {deployments, getNamedAccounts} = hre;
-    const {deploy} = deployments;
+    const { deploy, log, get } = deployments
 
     const {deployer} = await getNamedAccounts();
 
@@ -18,6 +18,11 @@ const func: DeployFunction = async function (hre: HardhatRuntimeEnvironment) {
         },
         log: true,
     });
+
+    // const reddalToken = await get("Reddal")
+    // await hre.run("verify:verify", {
+    //   address: reddalToken.address,
+    // });
 };
 
 export default func;

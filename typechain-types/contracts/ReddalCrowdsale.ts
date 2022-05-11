@@ -29,12 +29,16 @@ import type {
 
 export interface ReddalCrowdsaleInterface extends utils.Interface {
   functions: {
+    "resume()": FunctionFragment;
     "_price()": FunctionFragment;
+    "enabled()": FunctionFragment;
     "rate()": FunctionFragment;
+    "disable()": FunctionFragment;
     "pauseICO()": FunctionFragment;
     "unpause()": FunctionFragment;
     "weiRaised()": FunctionFragment;
     "isPauser(address)": FunctionFragment;
+    "_updater()": FunctionFragment;
     "wallet()": FunctionFragment;
     "updateETHUSDRate(uint256)": FunctionFragment;
     "paused()": FunctionFragment;
@@ -46,21 +50,26 @@ export interface ReddalCrowdsaleInterface extends utils.Interface {
     "pause()": FunctionFragment;
     "owner()": FunctionFragment;
     "isOwner()": FunctionFragment;
-    "updater()": FunctionFragment;
+    "enable()": FunctionFragment;
     "ethusdRate()": FunctionFragment;
     "buyTokens(address)": FunctionFragment;
+    "end()": FunctionFragment;
     "transferOwnership(address)": FunctionFragment;
     "token()": FunctionFragment;
   };
 
   getFunction(
     nameOrSignatureOrTopic:
+      | "resume"
       | "_price"
+      | "enabled"
       | "rate"
+      | "disable"
       | "pauseICO"
       | "unpause"
       | "weiRaised"
       | "isPauser"
+      | "_updater"
       | "wallet"
       | "updateETHUSDRate"
       | "paused"
@@ -72,19 +81,24 @@ export interface ReddalCrowdsaleInterface extends utils.Interface {
       | "pause"
       | "owner"
       | "isOwner"
-      | "updater"
+      | "enable"
       | "ethusdRate"
       | "buyTokens"
+      | "end"
       | "transferOwnership"
       | "token"
   ): FunctionFragment;
 
+  encodeFunctionData(functionFragment: "resume", values?: undefined): string;
   encodeFunctionData(functionFragment: "_price", values?: undefined): string;
+  encodeFunctionData(functionFragment: "enabled", values?: undefined): string;
   encodeFunctionData(functionFragment: "rate", values?: undefined): string;
+  encodeFunctionData(functionFragment: "disable", values?: undefined): string;
   encodeFunctionData(functionFragment: "pauseICO", values?: undefined): string;
   encodeFunctionData(functionFragment: "unpause", values?: undefined): string;
   encodeFunctionData(functionFragment: "weiRaised", values?: undefined): string;
   encodeFunctionData(functionFragment: "isPauser", values: [string]): string;
+  encodeFunctionData(functionFragment: "_updater", values?: undefined): string;
   encodeFunctionData(functionFragment: "wallet", values?: undefined): string;
   encodeFunctionData(
     functionFragment: "updateETHUSDRate",
@@ -108,24 +122,29 @@ export interface ReddalCrowdsaleInterface extends utils.Interface {
   encodeFunctionData(functionFragment: "pause", values?: undefined): string;
   encodeFunctionData(functionFragment: "owner", values?: undefined): string;
   encodeFunctionData(functionFragment: "isOwner", values?: undefined): string;
-  encodeFunctionData(functionFragment: "updater", values?: undefined): string;
+  encodeFunctionData(functionFragment: "enable", values?: undefined): string;
   encodeFunctionData(
     functionFragment: "ethusdRate",
     values?: undefined
   ): string;
   encodeFunctionData(functionFragment: "buyTokens", values: [string]): string;
+  encodeFunctionData(functionFragment: "end", values?: undefined): string;
   encodeFunctionData(
     functionFragment: "transferOwnership",
     values: [string]
   ): string;
   encodeFunctionData(functionFragment: "token", values?: undefined): string;
 
+  decodeFunctionResult(functionFragment: "resume", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "_price", data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: "enabled", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "rate", data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: "disable", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "pauseICO", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "unpause", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "weiRaised", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "isPauser", data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: "_updater", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "wallet", data: BytesLike): Result;
   decodeFunctionResult(
     functionFragment: "updateETHUSDRate",
@@ -146,9 +165,10 @@ export interface ReddalCrowdsaleInterface extends utils.Interface {
   decodeFunctionResult(functionFragment: "pause", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "owner", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "isOwner", data: BytesLike): Result;
-  decodeFunctionResult(functionFragment: "updater", data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: "enable", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "ethusdRate", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "buyTokens", data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: "end", data: BytesLike): Result;
   decodeFunctionResult(
     functionFragment: "transferOwnership",
     data: BytesLike
@@ -156,6 +176,10 @@ export interface ReddalCrowdsaleInterface extends utils.Interface {
   decodeFunctionResult(functionFragment: "token", data: BytesLike): Result;
 
   events: {
+    "Enabled(address)": EventFragment;
+    "Stopped(address)": EventFragment;
+    "Ended(address)": EventFragment;
+    "Resume(address)": EventFragment;
     "OwnershipTransferred(address,address)": EventFragment;
     "Paused(address)": EventFragment;
     "Unpaused(address)": EventFragment;
@@ -164,6 +188,10 @@ export interface ReddalCrowdsaleInterface extends utils.Interface {
     "TokensPurchased(address,address,uint256,uint256)": EventFragment;
   };
 
+  getEvent(nameOrSignatureOrTopic: "Enabled"): EventFragment;
+  getEvent(nameOrSignatureOrTopic: "Stopped"): EventFragment;
+  getEvent(nameOrSignatureOrTopic: "Ended"): EventFragment;
+  getEvent(nameOrSignatureOrTopic: "Resume"): EventFragment;
   getEvent(nameOrSignatureOrTopic: "OwnershipTransferred"): EventFragment;
   getEvent(nameOrSignatureOrTopic: "Paused"): EventFragment;
   getEvent(nameOrSignatureOrTopic: "Unpaused"): EventFragment;
@@ -171,6 +199,34 @@ export interface ReddalCrowdsaleInterface extends utils.Interface {
   getEvent(nameOrSignatureOrTopic: "PauserRemoved"): EventFragment;
   getEvent(nameOrSignatureOrTopic: "TokensPurchased"): EventFragment;
 }
+
+export interface EnabledEventObject {
+  account: string;
+}
+export type EnabledEvent = TypedEvent<[string], EnabledEventObject>;
+
+export type EnabledEventFilter = TypedEventFilter<EnabledEvent>;
+
+export interface StoppedEventObject {
+  account: string;
+}
+export type StoppedEvent = TypedEvent<[string], StoppedEventObject>;
+
+export type StoppedEventFilter = TypedEventFilter<StoppedEvent>;
+
+export interface EndedEventObject {
+  account: string;
+}
+export type EndedEvent = TypedEvent<[string], EndedEventObject>;
+
+export type EndedEventFilter = TypedEventFilter<EndedEvent>;
+
+export interface ResumeEventObject {
+  account: string;
+}
+export type ResumeEvent = TypedEvent<[string], ResumeEventObject>;
+
+export type ResumeEventFilter = TypedEventFilter<ResumeEvent>;
 
 export interface OwnershipTransferredEventObject {
   previousOwner: string;
@@ -252,9 +308,19 @@ export interface ReddalCrowdsale extends BaseContract {
   removeListener: OnEvent<this>;
 
   functions: {
+    resume(
+      overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<ContractTransaction>;
+
     _price(overrides?: CallOverrides): Promise<[BigNumber]>;
 
+    enabled(overrides?: CallOverrides): Promise<[boolean]>;
+
     rate(overrides?: CallOverrides): Promise<[BigNumber]>;
+
+    disable(
+      overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<ContractTransaction>;
 
     pauseICO(
       overrides?: Overrides & { from?: string | Promise<string> }
@@ -267,6 +333,8 @@ export interface ReddalCrowdsale extends BaseContract {
     weiRaised(overrides?: CallOverrides): Promise<[BigNumber]>;
 
     isPauser(account: string, overrides?: CallOverrides): Promise<[boolean]>;
+
+    _updater(overrides?: CallOverrides): Promise<[string]>;
 
     wallet(overrides?: CallOverrides): Promise<[string]>;
 
@@ -304,13 +372,19 @@ export interface ReddalCrowdsale extends BaseContract {
 
     isOwner(overrides?: CallOverrides): Promise<[boolean]>;
 
-    updater(overrides?: CallOverrides): Promise<[string]>;
+    enable(
+      overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<ContractTransaction>;
 
     ethusdRate(overrides?: CallOverrides): Promise<[BigNumber]>;
 
     buyTokens(
       beneficiary: string,
       overrides?: PayableOverrides & { from?: string | Promise<string> }
+    ): Promise<ContractTransaction>;
+
+    end(
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
     transferOwnership(
@@ -321,9 +395,19 @@ export interface ReddalCrowdsale extends BaseContract {
     token(overrides?: CallOverrides): Promise<[string]>;
   };
 
+  resume(
+    overrides?: Overrides & { from?: string | Promise<string> }
+  ): Promise<ContractTransaction>;
+
   _price(overrides?: CallOverrides): Promise<BigNumber>;
 
+  enabled(overrides?: CallOverrides): Promise<boolean>;
+
   rate(overrides?: CallOverrides): Promise<BigNumber>;
+
+  disable(
+    overrides?: Overrides & { from?: string | Promise<string> }
+  ): Promise<ContractTransaction>;
 
   pauseICO(
     overrides?: Overrides & { from?: string | Promise<string> }
@@ -336,6 +420,8 @@ export interface ReddalCrowdsale extends BaseContract {
   weiRaised(overrides?: CallOverrides): Promise<BigNumber>;
 
   isPauser(account: string, overrides?: CallOverrides): Promise<boolean>;
+
+  _updater(overrides?: CallOverrides): Promise<string>;
 
   wallet(overrides?: CallOverrides): Promise<string>;
 
@@ -373,13 +459,19 @@ export interface ReddalCrowdsale extends BaseContract {
 
   isOwner(overrides?: CallOverrides): Promise<boolean>;
 
-  updater(overrides?: CallOverrides): Promise<string>;
+  enable(
+    overrides?: Overrides & { from?: string | Promise<string> }
+  ): Promise<ContractTransaction>;
 
   ethusdRate(overrides?: CallOverrides): Promise<BigNumber>;
 
   buyTokens(
     beneficiary: string,
     overrides?: PayableOverrides & { from?: string | Promise<string> }
+  ): Promise<ContractTransaction>;
+
+  end(
+    overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
   transferOwnership(
@@ -390,9 +482,15 @@ export interface ReddalCrowdsale extends BaseContract {
   token(overrides?: CallOverrides): Promise<string>;
 
   callStatic: {
+    resume(overrides?: CallOverrides): Promise<void>;
+
     _price(overrides?: CallOverrides): Promise<BigNumber>;
 
+    enabled(overrides?: CallOverrides): Promise<boolean>;
+
     rate(overrides?: CallOverrides): Promise<BigNumber>;
+
+    disable(overrides?: CallOverrides): Promise<void>;
 
     pauseICO(overrides?: CallOverrides): Promise<void>;
 
@@ -401,6 +499,8 @@ export interface ReddalCrowdsale extends BaseContract {
     weiRaised(overrides?: CallOverrides): Promise<BigNumber>;
 
     isPauser(account: string, overrides?: CallOverrides): Promise<boolean>;
+
+    _updater(overrides?: CallOverrides): Promise<string>;
 
     wallet(overrides?: CallOverrides): Promise<string>;
 
@@ -427,11 +527,13 @@ export interface ReddalCrowdsale extends BaseContract {
 
     isOwner(overrides?: CallOverrides): Promise<boolean>;
 
-    updater(overrides?: CallOverrides): Promise<string>;
+    enable(overrides?: CallOverrides): Promise<void>;
 
     ethusdRate(overrides?: CallOverrides): Promise<BigNumber>;
 
     buyTokens(beneficiary: string, overrides?: CallOverrides): Promise<void>;
+
+    end(overrides?: CallOverrides): Promise<void>;
 
     transferOwnership(
       newOwner: string,
@@ -442,6 +544,18 @@ export interface ReddalCrowdsale extends BaseContract {
   };
 
   filters: {
+    "Enabled(address)"(account?: null): EnabledEventFilter;
+    Enabled(account?: null): EnabledEventFilter;
+
+    "Stopped(address)"(account?: null): StoppedEventFilter;
+    Stopped(account?: null): StoppedEventFilter;
+
+    "Ended(address)"(account?: null): EndedEventFilter;
+    Ended(account?: null): EndedEventFilter;
+
+    "Resume(address)"(account?: null): ResumeEventFilter;
+    Resume(account?: null): ResumeEventFilter;
+
     "OwnershipTransferred(address,address)"(
       previousOwner?: string | null,
       newOwner?: string | null
@@ -478,9 +592,19 @@ export interface ReddalCrowdsale extends BaseContract {
   };
 
   estimateGas: {
+    resume(
+      overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<BigNumber>;
+
     _price(overrides?: CallOverrides): Promise<BigNumber>;
 
+    enabled(overrides?: CallOverrides): Promise<BigNumber>;
+
     rate(overrides?: CallOverrides): Promise<BigNumber>;
+
+    disable(
+      overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<BigNumber>;
 
     pauseICO(
       overrides?: Overrides & { from?: string | Promise<string> }
@@ -493,6 +617,8 @@ export interface ReddalCrowdsale extends BaseContract {
     weiRaised(overrides?: CallOverrides): Promise<BigNumber>;
 
     isPauser(account: string, overrides?: CallOverrides): Promise<BigNumber>;
+
+    _updater(overrides?: CallOverrides): Promise<BigNumber>;
 
     wallet(overrides?: CallOverrides): Promise<BigNumber>;
 
@@ -530,13 +656,19 @@ export interface ReddalCrowdsale extends BaseContract {
 
     isOwner(overrides?: CallOverrides): Promise<BigNumber>;
 
-    updater(overrides?: CallOverrides): Promise<BigNumber>;
+    enable(
+      overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<BigNumber>;
 
     ethusdRate(overrides?: CallOverrides): Promise<BigNumber>;
 
     buyTokens(
       beneficiary: string,
       overrides?: PayableOverrides & { from?: string | Promise<string> }
+    ): Promise<BigNumber>;
+
+    end(
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
     transferOwnership(
@@ -548,9 +680,19 @@ export interface ReddalCrowdsale extends BaseContract {
   };
 
   populateTransaction: {
+    resume(
+      overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<PopulatedTransaction>;
+
     _price(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
+    enabled(overrides?: CallOverrides): Promise<PopulatedTransaction>;
+
     rate(overrides?: CallOverrides): Promise<PopulatedTransaction>;
+
+    disable(
+      overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<PopulatedTransaction>;
 
     pauseICO(
       overrides?: Overrides & { from?: string | Promise<string> }
@@ -566,6 +708,8 @@ export interface ReddalCrowdsale extends BaseContract {
       account: string,
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
+
+    _updater(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
     wallet(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
@@ -603,13 +747,19 @@ export interface ReddalCrowdsale extends BaseContract {
 
     isOwner(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
-    updater(overrides?: CallOverrides): Promise<PopulatedTransaction>;
+    enable(
+      overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<PopulatedTransaction>;
 
     ethusdRate(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
     buyTokens(
       beneficiary: string,
       overrides?: PayableOverrides & { from?: string | Promise<string> }
+    ): Promise<PopulatedTransaction>;
+
+    end(
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
     transferOwnership(

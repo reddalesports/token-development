@@ -17,6 +17,12 @@ const func: DeployFunction = async function (hre: HardhatRuntimeEnvironment) {
         },
         log: true,
     });
+
+    const reddalUpgrade = await get("ReddalUpgrade")
+
+    // await hre.run("verify:verify", {
+    //     address: reddalUpgrade.address,
+    // });
 };
 
 export default func;

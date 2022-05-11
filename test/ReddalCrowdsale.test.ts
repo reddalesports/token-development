@@ -16,7 +16,7 @@ describe("Deploying Reddal Crowdsale", function () {
         this.token = await upgrades.deployProxy(Token, {kind: "uups"});
         const [beneficiary, updater] = await ethers.getSigners();
         const ReddalCrowdsale = await ethers.getContractFactory("ReddalCrowdsale");
-        this.crowdsale = await ReddalCrowdsale.deploy(10, beneficiary.address, this.token.address, updater.address, 1000);
+        this.crowdsale = await ReddalCrowdsale.deploy(10, beneficiary.address, this.token.address, updater.address, 1000, beneficiary.address, beneficiary.address);
         this.token.transfer(this.crowdsale.address, await this.token.totalSupply());
     });
 
